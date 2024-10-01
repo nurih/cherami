@@ -88,7 +88,7 @@ function App() {
       </Accordion>
       
       <hr />
-
+<p>Enter a URL, name it, and it creates a QR for you.</p>
       <Form style={{ backgroundColor: '#EEE', padding: '1rem' }}>
         <FormGroup>
           <Label for="title">
