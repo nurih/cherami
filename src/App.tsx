@@ -65,9 +65,9 @@ function App() {
 
   return (
     <>
-      <img src='shareme.svg' style={{ height: '2rem' }}></img>
-      <h1>Cherami</h1>
-      <i>Pronounced like "Jeremy" but also like dear friend in French</i>
+      <h1><img src='shareme.svg' style={{ height: '2rem' }}></img>
+       Cherami</h1>
+      <i>Pronounced like "Jeramy" and also like dear friend in French</i>
       {isLoading && <Spinner color="danger" type="grow">Loading...</Spinner>}
       {error && <div className="p-3 bg-danger my-2 rounded">
         <Toast><ToastHeader>Error</ToastHeader><ToastBody>{JSON.stringify(error)}</ToastBody></Toast>
