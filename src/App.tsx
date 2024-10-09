@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import PWABadge from './PWABadge.tsx'
 import './App.css'
-import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, Card, CardBody, Collapse, Form, FormGroup, Input, Label, Spinner, Toast, ToastBody, ToastHeader } from 'reactstrap';
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, Card, CardBody, Form, FormGroup, Input, Label, Spinner, Toast, ToastBody, ToastHeader } from 'reactstrap';
 import { QrStorage, QrData } from './QrStorage';
 
 import QrTile from './QrTile.tsx';
@@ -10,13 +10,13 @@ const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
 
 function App() {
-  const [dangerZone, setDangerZone] = useState<boolean>(false)
   const [txt, setTxt] = useState<string>('https://');
   const [name, setName] = useState<string>('');
   const [items, setItems] = useState<QrData[]>([])
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const store = new QrStorage();
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,9 +44,10 @@ function App() {
     store.save(list);
   }
 
-  // const deleteItem = (id: number) => {
-  //   setItems(items.filter(item => item.id !== id));
-  // };
+  const deleteItem = (id: number) => {
+    console.log(`Delete item ${id}`)
+    setItems(items.filter(item => item.id !== id));
+  };
 
   const [open, setOpen] = useState<string>('');
   const toggle = (id: string) => {
@@ -66,7 +67,7 @@ function App() {
   return (
     <>
       <h1><img src='shareme.svg' style={{ height: '2rem' }}></img>
-       Cherami</h1>
+        Cherami</h1>
       <i>Pronounced like "Jeramy" and also like dear friend in French</i>
       {isLoading && <Spinner color="danger" type="grow">Loading...</Spinner>}
       {error && <div className="p-3 bg-danger my-2 rounded">
@@ -78,17 +79,23 @@ function App() {
           items.map((q, i) => (
             <AccordionItem key={i}>
               <AccordionHeader targetId={String(i)}>
-                {q.name}</AccordionHeader>
+                {q.name}
+              </AccordionHeader>
               <AccordionBody accordionId={String(i)}>
-                <QrTile data={q.text} />
+                <QrTile data={q.text} editMode={editMode} />
+                {editMode && (
+                  <Button color="warning" onClick={()=> deleteItem(q.id)}>
+                    <i className="bi bi-trash3 float-end"></i>
+                  </Button>)
+                }
               </AccordionBody>
             </AccordionItem>
           ))
         }
       </Accordion>
-      
+
       <hr />
-<p>Enter a URL, name it, and it creates a QR for you.</p>
+      <p>Enter a URL, name it, and it creates a QR for you.</p>
       <Form style={{ backgroundColor: '#EEE', padding: '1rem' }}>
         <FormGroup>
           <Label for="title">
@@ -117,18 +124,18 @@ function App() {
       </Form>
 
       <Card>
-        <Button color="primary" onClick={() => setDangerZone(!dangerZone)} style={{ marginBottom: '1rem' }}>
-          Open Danger Zone
-        </Button>
-        <Collapse isOpen={dangerZone}>
-          <Card>
-            <CardBody>
-              If you click this one, all data is lost.
-              <Button onClick={deleteAll} >Trash</Button>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </Card>
+        <CardBody>
+          <Button onClick={() => setEditMode(!editMode)} color={editMode ? 'danger' : 'primary'} className='float-start'>
+            <i className='bi bi-pencil'></i>
+          </Button>
+
+          {editMode && (
+            <Button onClick={deleteAll} className='float-end' color='danger'>
+              <i className='bi bi-trash3'> Delete all</i>
+            </Button>
+          )}
+        </CardBody>
+      </Card >
 
       <PWABadge />
     </>

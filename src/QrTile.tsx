@@ -1,11 +1,11 @@
 import QRCode from "react-qr-code";
-import { Nav, NavItem, NavLink } from "reactstrap";
+import { Button, Nav, NavItem, NavLink } from "reactstrap";
 
 
-export default function QrTile({ data }: { data: string }) {
+export default function QrTile({ data, editMode }: { data: string, editMode: boolean }) {
   return (
-    <div>
-      <QRCode value={data} level='L' />
+    <div>      
+      <QRCode value={data} level='L'/>
       <Nav>
         <NavItem>
           <NavLink href={data}>{data}</NavLink>
