@@ -15,8 +15,9 @@ function App() {
   const [items, setItems] = useState<QrData[]>([])
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const store = new QrStorage();
   const [editMode, setEditMode] = useState(false);
+
+  const store = new QrStorage();
 
   useEffect(() => {
     setIsLoading(true);
@@ -82,9 +83,9 @@ function App() {
                 {q.name}
               </AccordionHeader>
               <AccordionBody accordionId={String(i)}>
-                <QrTile data={q.text} editMode={editMode} />
+                <QrTile data={q.text} />
                 {editMode && (
-                  <Button color="warning" onClick={()=> deleteItem(q.id)}>
+                  <Button color="warning" onClick={() => deleteItem(q.id)}>
                     <i className="bi bi-trash3 float-end"></i>
                   </Button>)
                 }
