@@ -18,12 +18,14 @@ export default defineConfig({
       short_name: 'cherami',
       description: 'One click personal QR sharing',
       theme_color: '#ffffff',
+
     },
 
     workbox: {
       globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
       cleanupOutdatedCaches: true,
       clientsClaim: true,
+      sourcemap: true
     },
 
     devOptions: {
