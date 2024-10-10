@@ -14,8 +14,8 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'Share Me',
-      short_name: 'shareme',
+      name: 'Cher Ami',
+      short_name: 'cherami',
       description: 'One click personal QR sharing',
       theme_color: '#ffffff',
     },
