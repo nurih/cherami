@@ -1,4 +1,4 @@
-# Cherami
+# Cher Ami
 
 Create and share QR codes from your phone with ease.
 

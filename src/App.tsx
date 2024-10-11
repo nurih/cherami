@@ -6,6 +6,8 @@ import { QrStorage, QrData } from './QrStorage';
 
 import QrTile from './QrTile.tsx';
 
+import ConfirmedAction from './ConfirmedAction.tsx';
+
 const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
 
@@ -68,7 +70,7 @@ function App() {
   return (
     <>
       <h1><img src='shareme.svg' style={{ height: '2rem' }}></img>
-        Cherami</h1>
+        Cher Ami</h1>
       <i>Pronounced like "Jeramy" and also like dear friend in French</i>
       {isLoading && <Spinner color="danger" type="grow">Loading...</Spinner>}
       {error && <div className="p-3 bg-danger my-2 rounded">
@@ -97,44 +99,50 @@ function App() {
 
       <hr />
       <p>Enter a URL, name it, and it creates a QR for you.</p>
-      <Form style={{ backgroundColor: '#EEE', padding: '1rem' }}>
+      <Form style={{ padding: '1rem', backgroundColor: '#f0f8f0' }}>
         <FormGroup>
-          <Label for="title">
-            Name
-          </Label>
+          <Label for="title">Name</Label>
           <Input
-            plaintext
             id="title"
             name="title"
-            placeholder="Name..."
+            placeholder="Name for this QR..."
             value={name}
             onChange={e => setName(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
-          <Label for="url">
-            Url
-          </Label>
+          <Label for="url">Url</Label>
           <Input id="url" name="url" placeholder="https://..." type="url" value={txt} valid={urlRe.test(txt)}
             onChange={e => setTxt(e.target.value)}
           />
         </FormGroup>
         <Button onClick={addItem}
           disabled={!urlRe.test(txt)}
-          color={urlRe.test(txt) ? 'primary' : 'secondary'}>&#xFF0B;</Button>
+          color={urlRe.test(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
       </Form>
 
       <Card>
         <CardBody>
-          <Button onClick={() => setEditMode(!editMode)} color={editMode ? 'danger' : 'primary'} className='float-start'>
-            <i className='bi bi-pencil'></i>
-          </Button>
+          <FormGroup switch>
 
-          {editMode && (
-            <Button onClick={deleteAll} className='float-end' color='danger'>
-              <i className='bi bi-trash3'> Delete all</i>
-            </Button>
-          )}
+            <Label>
+              <span color={editMode ? 'danger' : 'primary'}>
+                Enable edit mode
+              </span>
+            </Label>
+
+            <Input type="switch" role="switch" onChange={(e) => setEditMode(e.target.checked)} />
+
+            {editMode &&
+              <ConfirmedAction
+                ok={deleteAll}
+                title='Are you sure?'
+                message='Do you really want to delete all items? This is cannot be undone.'
+                buttonText='Delete All' 
+                buttonIcon='bi-trash3' />
+            }
+          </FormGroup>
+
         </CardBody>
       </Card >
 
