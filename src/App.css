@@ -15,3 +15,11 @@
   background-color: var(--bs-light);
   border-radius: .3rem;
 }
+
+.title img {
+  margin-right: 6px;
+  
+}
+.title {
+  align-items: center;
+}

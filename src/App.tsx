@@ -66,12 +66,14 @@ function App() {
 
   return (
     <>
-      <h1><img src='shareme.svg' style={{ height: '2rem' }}></img>
-        Cher Ami</h1>
       <div className='jumbotron'>
-        <h2>Generate, save, and share your QR codes with ease!</h2>
-        <em>Free, works offline, no signup.</em>
-    
+        <p className="fs-2 mb-2 align-center title">
+          <img src='shareme.svg' style={{ height: '2rem' }} />
+            Cher Ami
+        </p>
+
+        <p>Generate, save, and share your QR codes with ease! Free to use, works offline, no signup.</p>
+
       </div>
 
       {isLoading && <Spinner color="danger" type="grow">Loading...</Spinner>}
