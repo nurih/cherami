@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import PWABadge from './PWABadge.tsx'
 import './App.css'
-import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, Card, CardBody, Form, FormGroup, Input, Label, Spinner, Toast, ToastBody, ToastHeader } from 'reactstrap';
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, Card, Form, FormGroup, Input, Label, Spinner, Toast, ToastBody, ToastHeader } from 'reactstrap';
 import { QrStorage, QrData } from './QrStorage';
 
 import QrTile from './QrTile.tsx';
 
-import ConfirmedAction from './ConfirmedAction.tsx';
+import ListEditor from './ListEditor.tsx';
 
 const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
@@ -18,6 +18,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [editMode, setEditMode] = useState(false);
+  const [open, setOpen] = useState<string>('');
 
   const store = new QrStorage();
 
@@ -47,12 +48,6 @@ function App() {
     store.save(list);
   }
 
-  const deleteItem = (id: number) => {
-    console.log(`Delete item ${id}`)
-    setItems(items.filter(item => item.id !== id));
-  };
-
-  const [open, setOpen] = useState<string>('');
   const toggle = (id: string) => {
     if (open === id) {
       setOpen('');
@@ -61,17 +56,24 @@ function App() {
     }
   };
 
-  function deleteAll() {
-    store.clear();
-    setItems([]);
+  function saveItems(list: QrData[]) {
+    setItems(list)
+    setTxt('https://');
+    setName('');
 
+    store.save(list);
   }
 
   return (
     <>
       <h1><img src='shareme.svg' style={{ height: '2rem' }}></img>
         Cher Ami</h1>
-      <i>Pronounced like "Jeramy" and also like dear friend in French</i>
+      <div className='jumbotron'>
+        <h2>Generate, save, and share your QR codes with ease!</h2>
+        <em>Free, works offline, no signup.</em>
+    
+      </div>
+
       {isLoading && <Spinner color="danger" type="grow">Loading...</Spinner>}
       {error && <div className="p-3 bg-danger my-2 rounded">
         <Toast><ToastHeader>Error</ToastHeader><ToastBody>{JSON.stringify(error)}</ToastBody></Toast>
@@ -86,20 +88,15 @@ function App() {
               </AccordionHeader>
               <AccordionBody accordionId={String(i)}>
                 <QrTile data={q.text} />
-                {editMode && (
-                  <Button color="warning" onClick={() => deleteItem(q.id)}>
-                    <i className="bi bi-trash3 float-end"></i>
-                  </Button>)
-                }
               </AccordionBody>
             </AccordionItem>
           ))
         }
       </Accordion>
 
-      <hr />
+      <p />
       <p>Enter a URL, name it, and it creates a QR for you.</p>
-      <Form style={{ padding: '1rem', backgroundColor: '#f0f8f0' }}>
+      <Form style={{ padding: '1rem', backgroundColor: '#F8F9FA' }}>
         <FormGroup>
           <Label for="title">Name</Label>
           <Input
@@ -121,29 +118,23 @@ function App() {
           color={urlRe.test(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
       </Form>
 
+      <p />
       <Card>
-        <CardBody>
-          <FormGroup switch>
 
-            <Label>
-              <span color={editMode ? 'danger' : 'primary'}>
-                Enable edit mode
-              </span>
-            </Label>
+        <FormGroup switch>
+          <Label >
+            {editMode ? (<p className='text-warning'>Editing</p>) : (<p className='text-info'>Edit my list</p>)}
+          </Label>
+          <Input type="switch" role="switch" onChange={(e) => setEditMode(e.target.checked)} />
 
-            <Input type="switch" role="switch" onChange={(e) => setEditMode(e.target.checked)} />
 
-            {editMode &&
-              <ConfirmedAction
-                ok={deleteAll}
-                title='Are you sure?'
-                message='Do you really want to delete all items? This is cannot be undone.'
-                buttonText='Delete All' 
-                buttonIcon='bi-trash3' />
-            }
-          </FormGroup>
+        </FormGroup>
+        {editMode &&
+          <>
+            <ListEditor items={items} updateItems={saveItems} />
+          </>
+        }
 
-        </CardBody>
       </Card >
 
       <PWABadge />

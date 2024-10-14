@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-function ConfirmedAction({ title, message, buttonText, buttonIcon, ok }: {
+function ConfirmedAction({ title, message, buttonText, buttonIcon, buttonColor, ok }: {
   title: string,
   message: string,
-  ok: () => void,
   buttonText: string,
-  buttonIcon: string
+  buttonIcon: string,
+  buttonColor: string,
+
+  ok: () => void,
 }) {
   const [modal, setModal] = useState(false);
 
+  function takeAction() {
+    ok();
+    setModal(!modal);
+  }
 
   return (
     <>
-      <Button onClick={() => setModal(!modal)} className='float-end'>
+      <Button onClick={() => setModal(!modal)} className='float-end' color={buttonColor}>
         <i className={"bi " + buttonIcon} ></i>{buttonText}
       </Button>
       <Modal isOpen={modal} toggle={() => setModal(!modal)}>
@@ -22,7 +28,7 @@ function ConfirmedAction({ title, message, buttonText, buttonIcon, ok }: {
           {message}
         </ModalBody>
         <ModalFooter>
-          <Button color="success" onClick={ok}>
+          <Button color="success" onClick={takeAction}>
             <i className="bi bi-check-lg"></i>
           </Button>{' '}
           <Button color="secondary" onClick={() => setModal(!modal)}>
