@@ -15,10 +15,11 @@ function ListItem({ item, index, itemCount, swapItems, deleteItem }: {
     <tbody>
       <tr>
         <td>
+          <Button onClick={() => swapItems(index, -1)} disabled={index == 0} color="light"><i className={index == 0 ? "bi bi-dash-square-dotted" : "bi bi-chevron-up"}></i></Button>
+          <Button onClick={() => swapItems(index, 1)} disabled={index == itemCount - 1} color="light"><i className={index == itemCount - 1 ? "bi bi-dash-square-dotted" : "bi bi-chevron-down"}></i></Button>
+        </td>
+        <td>
           <h4>
-            <Button onClick={() => swapItems(index, -1)} disabled={index == 0} color="primary"><i className="bi bi-arrow-up"></i></Button>
-            <Button onClick={() => swapItems(index, 1)} disabled={index == itemCount - 1} color="info"><i className="bi bi-arrow-down"></i></Button>
-
             &nbsp;{item.name}
           </h4>
         </td>
