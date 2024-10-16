@@ -7,6 +7,7 @@ import { QrStorage, QrData } from './QrStorage';
 import QrTile from './QrTile.tsx';
 
 import ListEditor from './ListEditor.tsx';
+import Haptic from './Haptic.ts';
 
 const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
@@ -47,6 +48,12 @@ function App() {
     setName('');
     setOpen('0');
     store.save(list);
+    try {
+      new Haptic().vibrate([300, 300, 200]);
+    }
+    catch (e) {
+      setError(e as Error)
+    }
   }
 
   const toggle = (id: string) => {

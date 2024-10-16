@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Button, Toast } from "reactstrap";
+import Haptic from "./Haptic";
+
+
 
 
 function NfcWriter({ url }: { url: string }) {
@@ -25,7 +28,7 @@ function NfcWriter({ url }: { url: string }) {
 
       nfc.onreading = async function* r() {
         setMessages([...messages, 'Found!', `Sending ${url}`]);
-
+        new Haptic().vibrate();
         await this.nfc.write(record);
         setMessages([...messages, `Sent ${url}.`]);
       };
