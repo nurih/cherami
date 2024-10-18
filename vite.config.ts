@@ -34,5 +34,11 @@ export default defineConfig({
       suppressWarnings: true,
       type: 'module',
     },
-  })],
+  }),
+  {name:'stampy',
+    transformIndexHtml: (contents, filePath)=> {
+      return contents.replace('</body>', `<hr/><span class="fs-6 float-center">${new Date().getTime()}</span> </body>`)
+    }
+  }
+],
 })

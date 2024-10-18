@@ -4,7 +4,7 @@ import { Nav, NavItem, NavLink } from "reactstrap";
 export default function QrTile({ data }: { data: string }) {
   return (
     <div>
-      <QRCode value={data} level='L' />
+      <QRCode value={data} level='Q' />
       <Nav>
         <NavItem>
           <NavLink href={data}>{data}</NavLink>
