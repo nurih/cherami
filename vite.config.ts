@@ -1,6 +1,7 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import * as fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,10 +36,12 @@ export default defineConfig({
       type: 'module',
     },
   }),
-  {name:'stampy',
-    transformIndexHtml: (contents, filePath)=> {
-      return contents.replace('</body>', `<hr/><span class="fs-6 float-center">${new Date().getTime()}</span> </body>`)
+  {
+    name: 'stampy',
+    transformIndexHtml: (contents, _filePath) => {
+      const hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
+      return contents.replace('</body>', `<hr/><span class="fs-6 float-center" style="color:#ddd;">${hash}</span> </body>`)
     }
   }
-],
+  ],
 })
