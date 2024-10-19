@@ -39,7 +39,15 @@ export default defineConfig({
   {
     name: 'stampy',
     transformIndexHtml: (contents, _filePath) => {
-      const hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
+      let hash = process.env.COMMIT_REF;
+      try{
+        if (hash == null)
+        hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
+      }catch(e){
+        console.error(e);
+        hash = new Date().getTime();
+      }
+
       return contents.replace('</body>', `<hr/><span class="fs-6 float-center" style="color:#ddd;">${hash}</span> </body>`)
     }
   }
