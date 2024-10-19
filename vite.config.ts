@@ -40,10 +40,11 @@ export default defineConfig({
     name: 'stampy',
     transformIndexHtml: (contents, _filePath) => {
       let hash = process.env.COMMIT_REF;
-      try{
-        if (hash == null)
-        hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
-      }catch(e){
+      try {
+        if (hash == null) {
+          hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
+        }
+      } catch (e) {
         console.error(e);
         hash = new Date().getTime();
       }
