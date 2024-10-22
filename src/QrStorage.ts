@@ -1,7 +1,7 @@
 export interface QrData {
   id: number;
   text: string;
-  name?:string
+  name?:string;
 }
 
 export class QrStorage {

@@ -9,6 +9,7 @@ import QrTile from './QrTile.tsx';
 import ListEditor from './ListEditor.tsx';
 import Haptic from './Haptic.ts';
 import ShareSelf from './ShareSelf.tsx';
+import LocalFile from './LocalFIle.tsx';
 
 const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
@@ -149,7 +150,7 @@ function App() {
 
       </Card >
 
-      <ShareSelf />
+      <LocalFile data={items} addItems={setItems} /><ShareSelf />
       <PWABadge />
     </>
   )
