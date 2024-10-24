@@ -18,8 +18,16 @@ export default defineConfig({
       name: 'Cher Ami',
       short_name: 'cherami',
       description: 'One click personal QR sharing',
+      display: "standalone",
       theme_color: '#ffffff',
-
+      icons: [
+        {
+          src: "cherami.svg",
+          sizes: "72x72 128x128 192x192 512x512",
+          type: "image/svg+xml",
+          "purpose": "any"
+        }
+      ]
     },
 
     workbox: {
@@ -46,7 +54,7 @@ export default defineConfig({
         }
       } catch (e) {
         console.error(e);
-        hash = new Date().getTime();
+        hash = String(new Date().getTime());
       }
 
       return contents.replace('</body>', `<hr/><span class="fs-6 float-center" style="color:#ddd;">${hash}</span> </body>`)

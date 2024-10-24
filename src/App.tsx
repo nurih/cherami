@@ -9,7 +9,7 @@ import QrTile from './QrTile.tsx';
 import ListEditor from './ListEditor.tsx';
 import Haptic from './Haptic.ts';
 import ShareSelf from './ShareSelf.tsx';
-import LocalFile from './LocalFIle.tsx';
+
 
 const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
 
@@ -78,7 +78,7 @@ function App() {
     <>
       <div className='jumbotron'>
         <p className="fs-2 mb-2 align-center title">
-          <img src='shareme.svg' style={{ height: '2rem' }} />
+          <img src='cherami.svg' style={{ height: '2rem' }} />
           Cher Ami
         </p>
 
@@ -149,8 +149,7 @@ function App() {
         }
 
       </Card >
-
-      <LocalFile data={items} addItems={setItems} /><ShareSelf />
+      <ShareSelf />
       <PWABadge />
     </>
   )

@@ -1,6 +1,7 @@
 import { Button, Card, Table } from "reactstrap";
 import { QrData } from "./QrStorage";
 import ConfirmedAction from "./ConfirmedAction";
+import LocalFile from "./LocalFIle";
 
 function ListItem({ item, index, itemCount, swapItems, deleteItem }: {
   item: QrData,
@@ -69,7 +70,6 @@ export default function ListEditor({ items, updateItems }: { items: QrData[], up
         ))}
       </Table>
       <div className="text-align-end">
-
         <ConfirmedAction
           buttonText='Delete all'
           buttonIcon='bi-trash3'
@@ -79,6 +79,11 @@ export default function ListEditor({ items, updateItems }: { items: QrData[], up
           message={`This will permanently delete all ${items.length} QR codes.`}
         />
       </div>
+      
+      <hr/>
+      
+      <LocalFile data={items} addItems={updateItems} />
+
     </Card>
   )
 }
