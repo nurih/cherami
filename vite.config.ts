@@ -6,6 +6,12 @@ import * as fs from 'fs';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), VitePWA({
+    includeAssets: [
+      'favicon.ico',
+      'apple-touch-icon-180x180.png',
+      'maskable-icon-512x512.png'
+    ],
+
     registerType: 'autoUpdate',
     injectRegister: false,
 
@@ -23,7 +29,7 @@ export default defineConfig({
       icons: [
         {
           src: "cherami.svg",
-          sizes: "72x72 128x128 192x192 512x512",
+          sizes: "192x192 512x512",
           type: "image/svg+xml",
           "purpose": "any"
         }
