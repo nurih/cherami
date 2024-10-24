@@ -118,48 +118,51 @@ function App() {
           </FormGroup>
         </Form>
 
-        {editMode &&
-          <>
-            <Card>
-              <CardHeader>
-                <h4>
-                  Add a QR Code
-                </h4>
-              </CardHeader>
-              <CardBody>
+      </Card>
 
-                <p>Enter a URL, name it, and it creates a QR for you.</p>
-                <Form style={{ padding: '1rem', backgroundColor: '#F8F9FA' }}>
-                  <FormGroup>
-                    <Label for="title">Name</Label>
-                    <Input
-                      id="title"
-                      name="title"
-                      placeholder="Name for this QR..."
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="url">Url</Label>
-                    <Input id="url" name="url" placeholder="https://..." type="url" value={txt} valid={urlRe.test(txt)}
-                      onChange={e => setTxt(e.target.value)}
-                    />
-                  </FormGroup>
-                  <Button onClick={addItem}
-                    disabled={!urlRe.test(txt)}
-                    color={urlRe.test(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
-                </Form>
-              </CardBody>
-            </Card>
+      {editMode &&
+        <>
+          <Card>
+            <CardHeader>
+              <h4>
+                Add a QR Code
+
+              </h4>
+            </CardHeader>
+            <CardBody>
+
+              <p>Enter a URL, name it, and it creates a QR for you.</p>
+              <Form style={{ padding: '1rem', backgroundColor: '#F8F9FA' }}>
+                <FormGroup>
+                  <Label for="title">Name</Label>
+                  <Input
+                    id="title"
+                    name="title"
+                    placeholder="Name for this QR..."
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="url">Url</Label>
+                  <Input id="url" name="url" placeholder="https://..." type="url" value={txt} valid={urlRe.test(txt)}
+                    onChange={e => setTxt(e.target.value)}
+                  />
+                </FormGroup>
+                <Button onClick={addItem}
+                  disabled={!urlRe.test(txt)}
+                  color={urlRe.test(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
+              </Form>
+            </CardBody>
+          </Card>
 
 
-            <ListEditor items={items} updateItems={saveItems} />
-          </>
-        }
+          <ListEditor items={items} updateItems={saveItems} />
+        </>
+      }
 
-      </Card >
       <ShareSelf />
+
       <PWABadge />
     </>
   )
