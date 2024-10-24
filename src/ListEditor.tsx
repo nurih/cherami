@@ -1,43 +1,10 @@
-import { Button, Card, Table } from "reactstrap";
+import { Card, Table } from "reactstrap";
 import { QrData } from "./QrStorage";
 import ConfirmedAction from "./ConfirmedAction";
 import LocalFile from "./LocalFIle";
-
-function ListItem({ item, index, itemCount, swapItems, deleteItem }: {
-  item: QrData,
-  index: number,
-  itemCount: number,
-  swapItems: (index: number, neighbor: number) => void,
-  deleteItem: (index: number) => void
-}) {
+import ListItem from "./ListItem";
 
 
-  return (
-    <tbody>
-      <tr>
-        <td>
-          <Button onClick={() => swapItems(index, -1)} disabled={index == 0} color="light"><i className={index == 0 ? "bi bi-dash-square-dotted" : "bi bi-chevron-up"}></i></Button>
-          <Button onClick={() => swapItems(index, 1)} disabled={index == itemCount - 1} color="light"><i className={index == itemCount - 1 ? "bi bi-dash-square-dotted" : "bi bi-chevron-down"}></i></Button>
-        </td>
-        <td>
-          <h4>
-            &nbsp;{item.name}
-          </h4>
-        </td>
-        <td>
-          <ConfirmedAction
-            buttonText=''
-            buttonIcon='bi-trash3'
-            buttonColor="danger"
-            title='Are you sure?'
-            message={`This will permanently delete ${item.name} \n for the url ${item.text} .`}
-            ok={() => deleteItem(item.id)}
-          />
-        </td>
-      </tr>
-    </tbody>
-  )
-}
 
 export default function ListEditor({ items, updateItems }: { items: QrData[], updateItems: (items: QrData[]) => void }) {
   function swapItems(index: number, neighbor: number): void {
@@ -69,6 +36,9 @@ export default function ListEditor({ items, updateItems }: { items: QrData[], up
           />
         ))}
       </Table>
+      <LocalFile data={items} addItems={updateItems} />
+
+      <hr />
       <div className="text-align-end">
         <ConfirmedAction
           buttonText='Delete all'
@@ -79,10 +49,7 @@ export default function ListEditor({ items, updateItems }: { items: QrData[], up
           message={`This will permanently delete all ${items.length} QR codes.`}
         />
       </div>
-      
-      <hr/>
-      
-      <LocalFile data={items} addItems={updateItems} />
+
 
     </Card>
   )
