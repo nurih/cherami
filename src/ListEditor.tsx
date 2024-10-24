@@ -1,4 +1,4 @@
-import { Card, Table } from "reactstrap";
+import { Card, CardBody, CardHeader, Table } from "reactstrap";
 import { QrData } from "./QrStorage";
 import ConfirmedAction from "./ConfirmedAction";
 import LocalFile from "./LocalFIle";
@@ -24,18 +24,25 @@ export default function ListEditor({ items, updateItems }: { items: QrData[], up
 
   return (
     <Card className="align-left-start">
-      <Table size="sm">{
-        items.map((q, i) => (
-          <ListItem
-            key={i}
-            item={q}
-            index={i}
-            swapItems={swapItems}
-            itemCount={items.length}
-            deleteItem={(index) => deleteItem(index)}
-          />
-        ))}
-      </Table>
+      <CardHeader>
+        <h4>Change QR Listing</h4>
+      </CardHeader>
+      <CardBody>
+        <p>Change the order of the items, or delete them.</p>
+        <Table size="sm">{
+          items.map((q, i) => (
+            <ListItem
+              key={i}
+              item={q}
+              index={i}
+              swapItems={swapItems}
+              itemCount={items.length}
+              deleteItem={(index) => deleteItem(index)}
+            />
+          ))}
+        </Table>
+      </CardBody>
+
       <LocalFile data={items} addItems={updateItems} />
 
       <hr />
