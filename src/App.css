@@ -1,11 +1,11 @@
 #root {
   max-width: 1280px;
   margin: auto;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .card {
-  padding: 1.4rem;
+  padding-bottom: 1.4rem;
 }
 
 
@@ -18,8 +18,13 @@
 
 .title img {
   margin-right: 6px;
-  
+
 }
+
 .title {
   align-items: center;
+}
+
+#switch\> {
+  padding-left: 1.4rem;
 }

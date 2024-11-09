@@ -107,18 +107,14 @@ function App() {
       </Accordion>
 
       <p />
-      <Card>
-        <Form>
-
-          <FormGroup switch>
-            <Label >
-              {editMode ? (<p className='text-warning'>Editing</p>) : (<p className='text-info'>Edit my list</p>)}
-            </Label>
-            <Input type="switch" role="switch" onChange={(e) => setEditMode(e.target.checked)} />
-          </FormGroup>
-        </Form>
-
-      </Card>
+      <Form id="switch>">
+        <FormGroup switch>
+          <Label for='editModeSwitch' >
+            {editMode ? (<p className='text-warning'>Editing</p>) : (<p className='text-info'>Edit my list</p>)}
+          </Label>
+          <Input id='editModeSwitch' type="switch" role="switch" onChange={(e) => setEditMode(e.target.checked)} />
+        </FormGroup>
+      </Form>
 
       {editMode &&
         <>

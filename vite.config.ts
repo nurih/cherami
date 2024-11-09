@@ -12,7 +12,7 @@ export default defineConfig({
       'maskable-icon-512x512.png'
     ],
 
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
     injectRegister: false,
 
     pwaAssets: {
