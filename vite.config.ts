@@ -28,7 +28,7 @@ export default defineConfig({
       name: 'Cher Ami',
       short_name: 'cherami',
       description: 'One click personal QR sharing',
-      display: "standalone",
+      display: "fullscreen",
       theme_color: '#ffffff',
       icons: [
         {
