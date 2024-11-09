@@ -8,11 +8,15 @@ export default defineConfig({
   plugins: [react(), VitePWA({
     includeAssets: [
       'favicon.ico',
+      'favicon.svg',
       'apple-touch-icon-180x180.png',
-      'maskable-icon-512x512.png'
+      'maskable-icon-512x512.png',
+      'pwa-192x192.png',
+      'pwa-512x512.png',
+      'pwa-64x64.png',
     ],
 
-    registerType: 'prompt',
+    registerType: 'autoUpdate',
     injectRegister: false,
 
     pwaAssets: {
@@ -31,9 +35,28 @@ export default defineConfig({
           src: "cherami.svg",
           sizes: "192x192 512x512",
           type: "image/svg+xml",
-          "purpose": "any"
+          purpose: "any"
+        },
+        {
+          src: "pwa-64x64.png",
+          sizes: "64x64",
+          type: "image/png",
+          purpose: "any"
+
+        },
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "any"
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any"
         }
-      ]
+      ],
     },
 
     workbox: {
@@ -58,6 +81,7 @@ export default defineConfig({
         if (hash == null) {
           hash = fs.readFileSync('./.git/refs/heads/main', 'utf8');
         }
+        hash = hash.slice(-6);
       } catch (e) {
         console.error(e);
         hash = String(new Date().getTime());
