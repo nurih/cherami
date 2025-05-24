@@ -11,7 +11,14 @@ import Haptic from './Haptic.ts';
 import ShareSelf from './ShareSelf.tsx';
 
 
-const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
+// const urlRe = /https?:\/\/\w{1,}\.\w{2,}/;
+const testUrl = (u: string) => {
+  try {
+    return !!new URL(u)
+  } catch {
+    return false
+  }
+}
 
 
 function App() {
@@ -141,13 +148,13 @@ function App() {
                 </FormGroup>
                 <FormGroup>
                   <Label for="url">Url</Label>
-                  <Input id="url" name="url" placeholder="https://..." type="url" value={txt} valid={urlRe.test(txt)}
+                  <Input id="url" name="url" placeholder="https://..." type="url" value={txt} valid={testUrl(txt)}
                     onChange={e => setTxt(e.target.value)}
                   />
                 </FormGroup>
                 <Button onClick={addItem}
-                  disabled={!urlRe.test(txt)}
-                  color={urlRe.test(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
+                  disabled={!testUrl(txt)}
+                  color={testUrl(txt) ? 'success' : 'secondary'}><i className='bi bi-floppy'></i></Button>
               </Form>
             </CardBody>
           </Card>
